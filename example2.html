@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>	
+    <script type="text/javascript" src="http://cdn.rawgit.com/sporritt/jsPlumb/master/dist/js/jquery.jsPlumb-1.7.2.js"></script>
+
+    <style type="text/css">
+      		#container {
+			    height: 100%;
+			    width: 100%;
+			}
+			
+			.item {
+				position: absolute;
+				border: 1px solid black;
+				background-color: #ddddff;
+			}
+    </style>
+
+  </head>  
+
+  <body>
+  <div id='container' ></div>
+    
+	
+	<script type="text/javascript">
+		var commonConnection = {
+				  anchors:[ "Continuous", "Continuous" ],
+				  connector:[ "Flowchart"]
+				};
+		$(function() {
+			jsPlumb.importDefaults({ 
+				  ConnectionsDetachable:false
+			});
+			jsPlumb.setContainer($('#container'));
+			addNode("e-65512", 20,20);
+			addNode("i-74420",97,191);
+			jsPlumb.connect({ source:$('#i-74420'), target:$('#e-65512') }, commonConnection);
+			addNode("i-71806",153,10);
+			jsPlumb.connect({ source:$('#e-65512'), target:$('#i-71806') }, commonConnection);
+			addNode("e-65511", 202,294);
+			jsPlumb.connect({ source:$('#i-74420'), target:$('#e-65511') }, commonConnection);
+		});
+		
+		function addNode(newNodeId, top, left){
+			var resourceType = newNodeId.substring(0,1);
+			var newNode = $('<div>').attr('id', newNodeId).addClass('item');
+		    var title = $('<div>').addClass('title').text(newNodeId);
+		    
+		    newNode.css({
+		      'top': top,
+		      'left': left
+		    });
+		    
+		    newNode.append(title);
+		    
+		    $('#container').append(newNode);
+		 	jsPlumb.makeTarget(newNode, {
+		      anchor: 'Continuous'
+		    });
+		
+		    
+		    
+		    
+		    	
+		}
+	</script>
+	
+  </body>
+</html>
